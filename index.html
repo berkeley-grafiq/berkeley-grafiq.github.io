@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>GRAFIQ</title>
+  <meta name="description" content="GRAFIQ: A Graphics-Grounded Benchmark for Vision-Language Models">
+  <meta name="keywords" content="VLM, benchmark, graphics, image formation, geometry, materials, lighting">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GRAFIQ">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/main.js"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item brand-text" href="index.html">
+        <strong>GRAFIQ</strong>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="mainNavbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item is-active" href="index.html">Proposal</a>
+        <a class="navbar-item is-disabled" href="#">
+          Milestones
+          <span class="tag is-light is-small navbar-tag">Soon</span>
+        </a>
+        <a class="navbar-item is-disabled" href="#">
+          Final Report
+          <span class="tag is-light is-small navbar-tag">Soon</span>
+        </a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a href="https://github.com/berkeley-grafiq" target="_blank" class="button is-dark is-small">
+            <span class="icon"><i class="fab fa-github"></i></span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-body" style="padding: 5rem 1.5rem 0.5rem 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h1 class="title is-size-2 publication-title section-header" style="padding-bottom: 0.3em;">
+            GRAFIQ: Do VLMs Understand<br>Image Formation?
+          </h1>
+          <div class="is-size-5 publication-authors">
+            A graphics-grounded benchmark for vision-language models
+          </div>
+          <div class="fullpage-line" style="margin-bottom: 1.5em;"></div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">Steve Chen</span>
+            <span class="author-block">Patrick Tsung-Han Wu</span>
+            <span class="author-block">Fei Gao</span>
+            <span class="author-block">Alex Wang</span>
+          </div>
+          <br>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">UC Berkeley</span>
+          </div>
+          <br>
+          <div>
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://github.com/berkeley-grafiq" target="_blank" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>GitHub</span>
+                </a>
+              </span>
+            </div>
+            <div class="fullpage-line" style="margin-top: 1.5em;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Hero -->
+
+<!-- Main content with sticky sidebar -->
+<section class="section main-content-section">
+  <div class="container" style="max-width: 1280px;">
+    <div class="columns">
+
+      <!-- Sticky sidebar -->
+      <div class="column is-one-fifth sidebar-column">
+        <aside class="menu sidebar-menu">
+          <p class="menu-label">Contents</p>
+          <ul class="menu-list">
+            <li><a href="#abstract" class="sidebar-link">Abstract</a></li>
+            <li><a href="#benchmark" class="sidebar-link">Benchmark Construction</a></li>
+            <li><a href="#evaluation" class="sidebar-link">Evaluation Protocol</a></li>
+            <li><a href="#deliverables" class="sidebar-link">Deliverables</a></li>
+            <li><a href="#schedule" class="sidebar-link">Schedule</a></li>
+            <li><a href="#resources" class="sidebar-link">Resources</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Content area -->
+      <div class="column is-four-fifths" style="max-width: 768px;">
+
+        <!-- Abstract -->
+        <div id="abstract" class="content-block">
+          <h2 class="title is-3 section-header">Abstract</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              VLMs are getting good at telling us <em>what</em> is in an image.
+              But can they explain <em>why</em> the image looks that way?
+            </p>
+            <p>
+              This question matters more than ever because VLMs are increasingly used as judges for image generation: to verify outputs, compare models, and critique rendered results. A model that only understands semantics may still miss the graphics structure that actually determines appearance.
+            </p>
+            <p>
+              <strong>GRAFIQ</strong> is a benchmark for testing whether VLMs understand the graphics factors behind image formation, not just image-level semantics. Given rendered images, we ask whether a model can reason about the latent scene properties that produced them.
+            </p>
+            <p>We focus on four core benchmark aspects:</p>
+            <ul>
+              <li><strong>Geometry</strong> &mdash; Can the model reason about 3D shape, depth, and surface normals?</li>
+              <li><strong>Materials</strong> &mdash; Can it distinguish albedo from gloss, texture from reflectance, and recognize view-dependent appearance?</li>
+              <li><strong>Lighting</strong> &mdash; Can it understand shadows, shading, and light direction as causes of visual change?</li>
+              <li><strong>Viewing &amp; Correspondence</strong> &mdash; Can it track consistency across camera changes, multi-view renderings, and object correspondences?</li>
+            </ul>
+            <p>
+              GRAFIQ is designed to measure whether VLMs understand not only what they see, but also the rendering structure that makes it visible.
+            </p>
+          </div>
+        </div>
+
+        <!-- Benchmark Construction -->
+        <div id="benchmark" class="content-block">
+          <h2 class="title is-3 section-header">Benchmark Construction</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              Our goal is to build GRAFIQ, a graphics-oriented benchmark that tests whether VLMs understand the factors behind image formation, rather than only recognizing image semantics. To make the benchmark concrete and feasible, we use a controlled synthetic rendering pipeline.
+            </p>
+            <p>The benchmark is built in three main steps:</p>
+
+            <h4>Step 1: Create Scenes</h4>
+            <p>
+              We build a set of simple but diverse 3D scenes with varied objects, materials, layouts, and lighting. This can be done with pre-existing publicly available datasets. The goal is to make our dataset as diverse as possible.
+            </p>
+
+            <h4>Step 2: Vary One Factor at a Time</h4>
+            <p>
+              For each scene, we change only one graphics factor while keeping the others fixed. This lets us isolate the cause of a visual difference. This can be done using Blender or programmatic rendering.
+            </p>
+
+            <h4>Step 3: Convert Renderings into QA Tasks</h4>
+            <p>
+              Using renderer metadata, we automatically generate questions and labels, then filter out ambiguous cases.
+            </p>
+
+            <p>We organize the benchmark into four task categories:</p>
+
+            <div class="task-category">
+              <h5><i class="fas fa-cube"></i>&ensp;Geometry</h5>
+              <p>Tests whether the model can reason about 3D structure such as shape, depth, and surface orientation.</p>
+              <ul>
+                <li>"Which object is closer to the camera, the red sphere or the blue cube?"</li>
+                <li>"Which surface is more front-facing to the viewer?"</li>
+              </ul>
+            </div>
+
+            <div class="task-category">
+              <h5><i class="fas fa-palette"></i>&ensp;Materials</h5>
+              <p>Tests whether the model can distinguish intrinsic surface properties such as albedo, glossiness, and reflectance.</p>
+              <ul>
+                <li>"Which object has a shinier material, the left mug or the right mug?"</li>
+                <li>"Did this appearance change come from the material or from the lighting?"</li>
+              </ul>
+            </div>
+
+            <div class="task-category">
+              <h5><i class="fas fa-sun"></i>&ensp;Lighting</h5>
+              <p>Tests whether the model understands illumination as the cause of shading and shadows.</p>
+              <ul>
+                <li>"Is the light source coming from the left or the right?"</li>
+                <li>"Which object is casting the shadow on the table?"</li>
+              </ul>
+            </div>
+
+            <div class="task-category">
+              <h5><i class="fas fa-eye"></i>&ensp;Viewing &amp; Correspondence</h5>
+              <p>Tests whether the model can reason across viewpoint changes and match objects between views.</p>
+              <ul>
+                <li>"Do these two images show the same scene from different viewpoints?"</li>
+                <li>"Which object in the second image corresponds to the striped cube in the first image?"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evaluation Protocol -->
+        <div id="evaluation" class="content-block">
+          <h2 class="title is-3 section-header">Evaluation Protocol</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              For each of the four categories, we build tasks in several formats:
+            </p>
+            <ul>
+              <li>Binary questions (yes / no)</li>
+              <li>Multiple-choice questions</li>
+              <li>Image-pair or multi-view comparison questions</li>
+            </ul>
+            <p>
+              The main evaluation metric is <strong>task accuracy</strong>. We report:
+            </p>
+            <ul>
+              <li>Overall accuracy across the full benchmark</li>
+              <li>Per-category accuracy for geometry, materials, lighting, and viewing/correspondence</li>
+              <li>Breakdowns by task type and scene variation</li>
+            </ul>
+            <p>
+              This helps us see not only whether a model performs well overall, but also which graphics factors it understands well and which remain difficult. If feasible, we will also include a small human baseline for comparison.
+            </p>
+          </div>
+        </div>
+
+        <!-- Deliverables -->
+        <div id="deliverables" class="content-block">
+          <h2 class="title is-3 section-header">Deliverables</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+
+            <h4>What We Plan to Deliver</h4>
+            <ul>
+              <li>A controlled synthetic data generation pipeline for graphics-based benchmarking</li>
+              <li>A benchmark dataset with tasks covering geometry, materials, lighting, and viewing &amp; correspondence</li>
+              <li>Automatically generated ground-truth labels from renderer metadata</li>
+              <li>An evaluation of several existing VLMs on the benchmark</li>
+              <li>Quantitative results with fine-grained breakdowns by category and task type</li>
+            </ul>
+
+            <h4>What We Hope to Deliver</h4>
+            <ul>
+              <li>A clearer diagnosis of how current VLMs fail on graphics-related reasoning</li>
+              <li>An error analysis or taxonomy of common failure modes</li>
+              <li>A small human baseline for reference</li>
+              <li>A simple baseline method or prompting strategy that improves performance or interpretability</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Schedule -->
+        <div id="schedule" class="content-block">
+          <h2 class="title is-3 section-header">Schedule</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <div class="coming-soon-box">
+              <p><i class="fas fa-calendar-alt"></i>&ensp;Schedule details will be added soon.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources -->
+        <div id="resources" class="content-block">
+          <h2 class="title is-3 section-header">Resources</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <h4>References</h4>
+            <ul>
+              <li>
+                <a href="https://arxiv.org/abs/2404.12390" target="_blank">BLINK: Multimodal Large Language Models Can See but Not Perceive</a>
+                &mdash; The key motivation paper demonstrating that VLMs struggle on perceptual judgments easy for humans.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <!-- End content area -->
+
+    </div>
+  </div>
+</section>
+<!-- Main content -->
+
+<!-- Back to top -->
+<a href="#" class="back-to-top" title="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="7"></line>
+    <polyline points="5 13 12 7 19 13"></polyline>
+    <line x1="5" y1="4" x2="19" y2="4"></line>
+  </svg>
+</a>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website template adapted from <a href="https://echo-bench.github.io" target="_blank">ECHO</a>,
+            which is based on <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
