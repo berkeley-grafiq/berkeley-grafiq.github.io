@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (sections.length > 0 && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
+    const sidebarObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           sidebarLinks.forEach(l => l.classList.remove('is-active'));
@@ -34,7 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
       threshold: 0
     });
 
-    sections.forEach(s => observer.observe(s.el));
+    sections.forEach(s => sidebarObserver.observe(s.el));
+  }
+
+  // ─── Content block entrance animation ───
+  const contentBlocks = document.querySelectorAll('.content-block');
+
+  if (contentBlocks.length > 0 && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.05
+    });
+
+    contentBlocks.forEach(block => revealObserver.observe(block));
   }
 
   // ─── Back-to-top visibility ───
