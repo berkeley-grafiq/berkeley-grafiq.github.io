@@ -215,14 +215,15 @@ body {
 }
 
 .content-block .content a {
-  color: #36454F;
-  text-decoration-color: rgba(54, 69, 79, 0.3);
+  color: #2563a0;
+  text-decoration-color: rgba(37, 99, 160, 0.35);
   text-underline-offset: 2px;
-  transition: text-decoration-color 0.15s;
+  transition: color 0.15s, text-decoration-color 0.15s;
 }
 
 .content-block .content a:hover {
-  text-decoration-color: #36454F;
+  color: #1a4a7a;
+  text-decoration-color: #1a4a7a;
 }
 
 .content-block h4 {
