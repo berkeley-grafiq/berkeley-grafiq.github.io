@@ -286,8 +286,41 @@
           <h2 class="title is-3 section-header">Schedule</h2>
           <div class="header-line"></div>
           <div class="content has-text-left">
-            <div class="coming-soon-box">
-              <p><i class="fas fa-calendar-alt"></i>&ensp;Schedule details will be added soon.</p>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Apr 5 &ndash; Apr 11</div>
+                  <div class="timeline-heading">Design &amp; Setup</div>
+                  <p>Finalize the benchmark design, task categories, rendering pipeline, and team task division based on proposal feedback. Begin the core planned deliverables by setting up scene generation, buffer extraction, and question templates.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-marker marker-milestone"></div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Apr 12 &ndash; Apr 18</div>
+                  <div class="timeline-heading">Core Build &amp; Milestone</div>
+                  <p>Complete the milestone report (Webpage, Video, Presentation Slides) by building most or even everything from the planned deliverables: the synthetic data pipeline, benchmark examples across the four categories, automatic label generation, and the initial evaluation setup.</p>
+                  <span class="timeline-tag">Milestone Report</span>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Apr 19 &ndash; Apr 25</div>
+                  <div class="timeline-heading">Stretch Goals</div>
+                  <p>Finish the planned deliverables and begin the aspirational deliverables, including broader VLM evaluation, deeper result breakdowns, failure analysis, and possibly a human baseline or simple baseline improvement.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-marker marker-final"></div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Apr 26 &ndash; May 5</div>
+                  <div class="timeline-heading">Wrap-up &amp; Final Presentation</div>
+                  <p>Complete the aspirational deliverables and finish the final report, video, presentation slides, and rehearsal for the final presentation.</p>
+                  <span class="timeline-tag tag-final">Final Presentation</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -297,13 +330,27 @@
           <h2 class="title is-3 section-header">Resources</h2>
           <div class="header-line"></div>
           <div class="content has-text-left">
-            <h4>References</h4>
+            <h4>Related Works</h4>
             <ul>
               <li>
                 <a href="https://arxiv.org/abs/2404.12390" target="_blank">BLINK: Multimodal Large Language Models Can See but Not Perceive</a>
-                &mdash; The key motivation paper demonstrating that VLMs struggle on perceptual judgments easy for humans.
+                &mdash; Shows that strong VLMs can still fail on basic visual perception tasks, which motivates our graphics-focused benchmark.
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2406.11212" target="_blank">PhysBench: Benchmarking and Enhancing Vision-Language Models for Physical World Understanding</a>
+                &mdash; A benchmark studying whether VLMs understand physical properties, relationships, scenes, and dynamics, helping us position our work as focusing on graphics-grounded visual reasoning.
               </li>
             </ul>
+
+            <h4>Computing Platform, Hardware, and Software</h4>
+            <p>
+              We will use our local machines as the main computing platform. Our software stack will mainly consist of Blender for rendering and scene generation, Python for data processing and benchmark construction, and PyTorch or Hugging Face Transformers for running and evaluating vision-language models.
+            </p>
+
+            <h4>Starting Point</h4>
+            <p>
+              We are not starting from a full existing benchmark codebase. Instead, we will build our own synthetic data-generation and evaluation pipeline using Blender scripting and standard VLM inference libraries. We may also incorporate publicly available 3D assets or scene datasets depending on the need.
+            </p>
           </div>
         </div>
 
