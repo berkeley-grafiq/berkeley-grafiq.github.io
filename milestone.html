@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>GRAFIQ — Milestone Report</title>
+  <meta name="description" content="GRAFIQ Milestone Report: a graphics-grounded benchmark for vision-language models.">
+  <meta name="keywords" content="VLM, benchmark, graphics, image formation, geometry, materials, lighting, milestone">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GRAFIQ — Milestone Report">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/main.js"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item brand-text" href="index.html">
+        <strong>GRAFIQ</strong>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="mainNavbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="index.html">Proposal</a>
+        <a class="navbar-item is-active" href="milestone.html">Milestones</a>
+        <a class="navbar-item is-disabled" href="#">
+          Final Report
+          <span class="tag is-light is-small navbar-tag">Soon</span>
+        </a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a href="https://github.com/berkeley-grafiq" target="_blank" class="button is-dark is-small">
+            <span class="icon"><i class="fab fa-github"></i></span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-body" style="padding: 5rem 1.5rem 0.5rem 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="milestone-eyebrow">Milestone Report</div>
+          <h1 class="title is-size-2 publication-title section-header" style="padding-bottom: 0.3em;">
+            GRAFIQ: Do VLMs Understand<br>Image Formation?
+          </h1>
+          <div class="is-size-5 publication-authors">
+            A graphics-grounded benchmark for vision-language models
+          </div>
+          <div class="fullpage-line" style="margin-bottom: 1.5em;"></div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">Steve Chen</span>
+            <span class="author-block">Patrick Tsung-Han Wu</span>
+            <span class="author-block">Fei Gao</span>
+            <span class="author-block">Alex Wang</span>
+          </div>
+          <br>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">UC Berkeley</span>
+          </div>
+          <br>
+          <div>
+            <div class="publication-links">
+              <!-- TODO: replace "#" with the Milestone Video link once uploaded. -->
+              <span class="link-block">
+                <a href="https://youtu.be/F4fm3rbWXjA?si=SRabZEDbpVqmA6Il" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fas fa-video"></i></span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/berkeley-grafiq/grafiq_datagen/blob/main/milestone/milestone.pdf" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/berkeley-grafiq/grafiq_datagen" target="_blank" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+            <div class="fullpage-line" style="margin-top: 1.5em;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Hero -->
+
+<!-- Main content with sticky sidebar -->
+<section class="section main-content-section">
+  <div class="container" style="max-width: 1280px;">
+    <div class="columns">
+
+      <!-- Sticky sidebar -->
+      <div class="column is-one-fifth sidebar-column">
+        <aside class="menu sidebar-menu">
+          <p class="menu-label">Contents</p>
+          <ul class="menu-list">
+            <li><a href="#summary" class="sidebar-link">Summary</a></li>
+            <li><a href="#results" class="sidebar-link">Preliminary Results</a></li>
+            <li><a href="#reflection" class="sidebar-link">Progress vs. Plan</a></li>
+            <li><a href="#updated-plan" class="sidebar-link">Updated Work Plan</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Content area -->
+      <div class="column is-four-fifths" style="max-width: 768px;">
+
+        <!-- Summary -->
+        <div id="summary" class="content-block">
+          <h2 class="title is-3 section-header">Summary</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              <strong>GRAFIQ</strong> (Graphic Intelligence Quotient) is a synthetic benchmark that probes whether vision&ndash;language models (VLMs) reason about the graphics factors behind an image&mdash;<em>geometry</em>, <em>materials</em>, and <em>lighting</em>&mdash;rather than only its semantics. Each item is a pairwise forced&ndash;choice question grounded in the render passes that produced the image, so the gold label is guaranteed to be supported by the pixels the model actually sees.
+            </p>
+            <p>Since the proposal we have built and validated the full pipeline:</p>
+            <ul>
+              <li>
+                A deterministic, two&ndash;stage <strong>Blender + Python pipeline</strong>: Stage 1 renders an RGB image plus the task&ndash;specific pass (depth, glossy&ndash;direct, surface&ndash;normal, or diffuse&ndash;direct); Stage 2 verifies the label against per&ndash;object statistics under Blender&rsquo;s <code>IndexOB</code> mask and discards any item whose pass&ndash;derived answer disagrees with the scene metadata.
+              </li>
+              <li>
+                <strong>Four tasks implemented</strong> across three image&ndash;formation axes: <em>depth comparison</em>, <em>roughness comparison</em>, <em>surface&ndash;normal orientation</em>, and <em>light&ndash;direction reasoning</em>, each with three natural&ndash;language question variants for phrasing robustness.
+              </li>
+              <li>
+                <strong>Three scene tiers</strong> that factor scene complexity along two independent axes: Tier&nbsp;1 (twenty procedural primitive assets &times; twelve controlled indoor/outdoor backgrounds), Tier&nbsp;2 (Objaverse foreground assets), and Tier&nbsp;3 (the same primitives re&ndash;rendered inside procedural <em>Infinigen</em> indoor scenes).
+              </li>
+              <li>
+                A pixel&ndash;centroid <strong>Left/Right labelling rule</strong> that anchors both the question wording and the gold answer to the viewer&rsquo;s perspective on the rendered frame, fixing a silent world&ndash;vs.&ndash;camera axis bug that previously pushed Qwen2.5&ndash;VL below chance.
+              </li>
+              <li>
+                An <strong>evaluation harness</strong> built on <a href="https://github.com/vllm-project/vllm" target="_blank">vLLM</a> that runs any VLM as a greedy forced&ndash;choice classifier and reports per&ndash;task and per&ndash;background accuracy with 95% bootstrap CIs and positional&ndash;bias diagnostics.
+              </li>
+            </ul>
+
+            <figure class="fig-block">
+              <div class="fig-grid fig-grid-2x2">
+                <img src="./static/images/milestone/fig1_depth.png" alt="Depth comparison QA item">
+                <img src="./static/images/milestone/fig1_roughness.png" alt="Roughness comparison QA item">
+                <img src="./static/images/milestone/fig1_normal.png" alt="Normal-orientation QA item">
+                <img src="./static/images/milestone/fig1_light.png" alt="Light-direction QA item">
+              </div>
+              <figcaption>
+                <strong>One pixel&ndash;verified item per task.</strong>
+                Top&ndash;left: depth comparison (geometry). Top&ndash;right: roughness comparison (materials).
+                Bottom&ndash;left: surface&ndash;normal orientation (geometry). Bottom&ndash;right: light&ndash;direction reasoning (lighting).
+                Each render is paired with a short viewer&ndash;relative <em>Left/Right</em> question whose gold label is verified against the underlying render pass.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Preliminary Results -->
+        <div id="results" class="content-block">
+          <h2 class="title is-3 section-header">Preliminary Results</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              The reference batch in <code>examples/showcase/</code> is a Tier&nbsp;1 split with 480 renders (10 primitive object pairs &times; 4 tasks &times; 12 backgrounds) that yield <strong>276 pixel&ndash;verified QA items</strong>. We evaluate <a href="https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct" target="_blank">Qwen2.5&ndash;VL&ndash;7B&ndash;Instruct</a> on this split as a first open&ndash;weight baseline; decoding is greedy, all 276 responses parse cleanly, and each number below is reported with a 95% bootstrap CI (10,000 resamples).
+            </p>
+
+            <div class="table-wrapper">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                    <th class="num">n</th>
+                    <th class="num">Accuracy</th>
+                    <th class="num">CI<sub>95</sub></th>
+                    <th class="num">p vs. chance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-sig">
+                    <td>roughness_comparison</td>
+                    <td class="num">34</td>
+                    <td class="num"><strong>79.4%</strong></td>
+                    <td class="num">[64.7, 91.2]</td>
+                    <td class="num">6.0&times;10<sup>&minus;4</sup></td>
+                  </tr>
+                  <tr class="row-sig">
+                    <td>depth_comparison</td>
+                    <td class="num">120</td>
+                    <td class="num"><strong>62.5%</strong></td>
+                    <td class="num">[54.2, 70.8]</td>
+                    <td class="num">6.2&times;10<sup>&minus;3</sup></td>
+                  </tr>
+                  <tr>
+                    <td>light_direction</td>
+                    <td class="num">72</td>
+                    <td class="num">48.6%</td>
+                    <td class="num">[37.5, 59.7]</td>
+                    <td class="num">0.81</td>
+                  </tr>
+                  <tr>
+                    <td>normal_orientation</td>
+                    <td class="num">50</td>
+                    <td class="num">38.0%</td>
+                    <td class="num">[24.0, 52.0]</td>
+                    <td class="num">0.090</td>
+                  </tr>
+                  <tr class="row-overall">
+                    <td><strong>Overall</strong></td>
+                    <td class="num"><strong>276</strong></td>
+                    <td class="num"><strong>56.5%</strong></td>
+                    <td class="num">[50.7, 62.3]</td>
+                    <td class="num">0.030</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="caption-small">
+              Table&nbsp;1: Qwen2.5&ndash;VL&ndash;7B&ndash;Instruct on the 276&ndash;item Tier&nbsp;1 showcase split. Rows whose CI excludes 50% are statistically distinguishable from chance at &alpha;=0.05.
+            </p>
+
+            <p>
+              Three findings stand out. <strong>(i) Above chance overall</strong> (56.5%, <em>p</em>=0.030), so the benchmark is non&ndash;trivial but not saturated. <strong>(ii) Clear task ordering</strong>: metric&ndash;comparison axes (<em>roughness</em>, <em>depth</em>) are significantly easier than axes that require inverting shading cues into an implicit 3D frame (<em>normal</em>, <em>light</em>), matching our RQ2 hypothesis. <strong>(iii) Small background effect</strong>: accuracy barely moves across the three background groups (Table&nbsp;2), with heavily overlapping CIs &mdash; we therefore read this as &ldquo;no large main effect at this scale&rdquo; and defer the definitive <strong>RQ3</strong> comparison to the Tier&nbsp;3 split.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Background group</th>
+                    <th class="num">n</th>
+                    <th class="num">Accuracy</th>
+                    <th class="num">CI<sub>95</sub></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Studio <span class="muted-pool">(plain / studio / room / gradient)</span></td>
+                    <td class="num">91</td>
+                    <td class="num">52.7%</td>
+                    <td class="num">[42.9, 62.6]</td>
+                  </tr>
+                  <tr>
+                    <td>Furnished indoor <span class="muted-pool">(bedroom / kitchen / living_room / office)</span></td>
+                    <td class="num">88</td>
+                    <td class="num">56.8%</td>
+                    <td class="num">[46.6, 67.0]</td>
+                  </tr>
+                  <tr>
+                    <td>Outdoor <span class="muted-pool">(outdoor / desert / snow / concrete)</span></td>
+                    <td class="num">97</td>
+                    <td class="num">59.8%</td>
+                    <td class="num">[49.5, 69.1]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="caption-small">
+              Table&nbsp;2: Qwen2.5&ndash;VL&ndash;7B&ndash;Instruct accuracy grouped by background style, with 95% bootstrap CIs. Point estimates rise slightly with background realism, but all three CIs overlap and the gap is well within bootstrap noise.
+            </p>
+
+            <p>
+              A positional&ndash;bias analysis exposed the dominant error mode: Qwen picks &ldquo;Left&rdquo; 73.2% of the time despite a 44.9% Left gold rate, and 82% of its errors are <code>(gold=Right, pred=Left)</code>. Figure&nbsp;2 shows three representative failures where the pass&ndash;level evidence clearly supports &ldquo;Right&rdquo; but the model answers &ldquo;Left&rdquo;.
+            </p>
+
+            <figure class="fig-block">
+              <div class="fig-grid fig-grid-3">
+                <img src="./static/images/milestone/failure_depth.png" alt="Failure case: depth comparison">
+                <img src="./static/images/milestone/failure_normal.png" alt="Failure case: normal orientation">
+                <img src="./static/images/milestone/failure_light.png" alt="Failure case: light direction">
+              </div>
+              <figcaption>
+                <strong>Representative failures (Qwen2.5&ndash;VL&ndash;7B).</strong>
+                In all three cases the pixel&ndash;verified gold answer is <em>Right</em> but the model predicts <em>Left</em>, reflecting a strong pretraining&ndash;induced &ldquo;Left&rdquo; prior rather than a task&ndash;specific perception failure.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Progress vs. Plan -->
+        <div id="reflection" class="content-block">
+          <h2 class="title is-3 section-header">Progress vs. Plan</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              Against the four&ndash;week schedule in our proposal, we are <strong>on track</strong>: the <em>Design &amp; Setup</em> and <em>Core Build &amp; Milestone</em> weeks are complete, and we have entered the <em>Stretch Goals</em> phase. Concretely, the pipeline, four&ndash;task QA generator, and evaluation harness that we promised as core deliverables all exist end&ndash;to&ndash;end and are reproducible from a single seed.
+            </p>
+            <figure class="fig-block">
+              <div class="fig-grid fig-grid-3">
+                <img src="./static/images/milestone/tier1_plain.png" alt="Tier 1 plain background">
+                <img src="./static/images/milestone/tier1_bedroom.png" alt="Tier 1 furnished bedroom">
+                <img src="./static/images/milestone/tier3_infinigen.png" alt="Tier 3 Infinigen scene">
+              </div>
+              <figcaption>
+                <strong>Scene tiers.</strong> The identical cube&ndash;and&ndash;sphere pair rendered on a plain neutral world (Tier&nbsp;1 plain), inside a furnished bedroom (Tier&nbsp;1 furnished), and inside a procedurally generated <em>Infinigen</em> interior (Tier&nbsp;3). Because object placement, camera, and render passes are shared across tiers, the pixel&ndash;verified label is identical; only the background realism changes.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Updated Work Plan -->
+        <div id="updated-plan" class="content-block">
+          <h2 class="title is-3 section-header">Updated Work Plan</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>Work remaining for the final deliverable falls into four buckets:</p>
+
+            <div class="task-category cat-geometry">
+              <h5><i class="fas fa-layer-group"></i>&ensp;Dataset scale &amp; tier sweep</h5>
+              <p>
+                Scale each tier to a few&ndash;thousand pixel&ndash;verified items and produce matched Tier&nbsp;1/2/3 splits so that the Tier&nbsp;1 baseline table can be re&ndash;run unchanged against the Objaverse (Tier&nbsp;2) and Infinigen (Tier&nbsp;3) splits. This is the comparison that actually answers <strong>RQ3 (background realism)</strong>. Infrastructure is in place; remaining work is batch rendering and curation.
+              </p>
+            </div>
+
+            <div class="task-category cat-viewing">
+              <h5><i class="fas fa-eye"></i>&ensp;Fifth axis: viewing &amp; correspondence</h5>
+              <p>
+                Reuse the existing scene constructor with two cameras and ask either &ldquo;do these images show the same scene?&rdquo; or &ldquo;which object in image B corresponds to object <em>X</em> in image A?&rdquo;. The <code>IndexOB</code> pass gives per&ndash;object correspondence for free, so no new rendering infrastructure is required.
+              </p>
+            </div>
+
+            <div class="task-category cat-materials">
+              <h5><i class="fas fa-chart-bar"></i>&ensp;Broader VLM evaluation</h5>
+              <p>
+                The remaining evaluation work breaks into three steps:
+              </p>
+              <ol class="plan-steps">
+                <li>
+                  <strong>Extend the harness to frontier closed&ndash;weight VLMs</strong> &mdash; OpenAI&rsquo;s GPT&ndash;5 family, Google&rsquo;s Gemini&nbsp;3, and Anthropic&rsquo;s Claude&nbsp;4.5&nbsp;/&nbsp;Opus &mdash; through their OpenAI&ndash; and Anthropic&ndash;compatible chat APIs, and add at least one stronger open&ndash;weight baseline (Qwen2.5&ndash;VL&ndash;72B, InternVL&ndash;2.5), so the leaderboard spans both a small&ndash;open and a large&ndash;closed tier.
+                </li>
+                <li>
+                  <strong>Re&ndash;run all models on the full&ndash;scale benchmark</strong> once the Tier&nbsp;1&ndash;3 splits have been scaled up.
+                </li>
+                <li>
+                  <strong>Collect a small human baseline</strong> (authors + volunteers) as a reference ceiling, if time allows.
+                </li>
+              </ol>
+            </div>
+
+            <div class="task-category cat-risk">
+              <h5><i class="fas fa-triangle-exclamation"></i>&ensp;Risks</h5>
+              <p>
+                The main open risk is that some tasks become trivially solvable, e.g.&nbsp;near/far depth with strong perspective, in which case we will harden them by narrowing the gap between the two objects&rsquo; ground&ndash;truth values, following <a href="https://arxiv.org/abs/2404.12390" target="_blank">BLINK</a>&rsquo;s recipe of filtering items with very large &ldquo;signal gaps&rdquo;.
+              </p>
+            </div>
+
+            <div class="timeline" style="margin-top: 2em;">
+              <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Apr 19 &ndash; Apr 25</div>
+                  <div class="timeline-heading">Stretch Goals (current)</div>
+                  <p>Scale Tier&nbsp;1/2/3 splits; implement viewing &amp; correspondence task; stand up closed&ndash;weight evaluation endpoints.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-marker marker-final"></div>
+                <div class="timeline-content">
+                  <div class="timeline-date">Apr 26 &ndash; May 5</div>
+                  <div class="timeline-heading">Wrap-up &amp; Final Presentation</div>
+                  <p>Re&ndash;run all models on the full&ndash;scale benchmark; failure analysis and category&ndash;level breakdowns; final report, video, slides, and rehearsal.</p>
+                  <span class="timeline-tag tag-final">Final Presentation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End content area -->
+
+    </div>
+  </div>
+</section>
+<!-- Main content -->
+
+<!-- Back to top -->
+<a href="#" class="back-to-top" title="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="7"></line>
+    <polyline points="5 13 12 7 19 13"></polyline>
+    <line x1="5" y1="4" x2="19" y2="4"></line>
+  </svg>
+</a>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website template adapted from <a href="https://echo-bench.github.io" target="_blank">ECHO</a>,
+            which is based on <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

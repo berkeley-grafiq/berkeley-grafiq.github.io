@@ -316,6 +316,10 @@ body {
   border-left-color: #6b4ad9;
 }
 
+.task-category.cat-risk {
+  border-left-color: #c0504d;
+}
+
 .task-category h5 {
   font-weight: 700;
   font-size: 0.95rem;
@@ -348,6 +352,10 @@ body {
   color: #6b4ad9;
 }
 
+.task-category.cat-risk h5 i {
+  color: #c0504d;
+}
+
 .task-category>p {
   margin-bottom: 0.4em !important;
   color: #555;
@@ -363,6 +371,55 @@ body {
   color: #888;
   font-size: 0.88em;
   line-height: 1.6;
+}
+
+.task-category ol.plan-steps {
+  list-style: none;
+  counter-reset: plan-step;
+  margin: 0.5em 0 0.2em 0;
+  padding: 0;
+}
+
+.task-category ol.plan-steps li {
+  counter-increment: plan-step;
+  position: relative;
+  padding: 0.35em 0 0.35em 2em;
+  font-size: 0.92em;
+  line-height: 1.65;
+  color: #444;
+  border-bottom: 1px dashed #eee;
+}
+
+.task-category ol.plan-steps li:last-child {
+  border-bottom: none;
+}
+
+.task-category ol.plan-steps li::before {
+  content: counter(plan-step);
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  background: #f0f2f5;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-category.cat-materials ol.plan-steps li::before {
+  background: rgba(217, 118, 74, 0.12);
+  color: #b35a2e;
+}
+
+.task-category ol.plan-steps li strong {
+  color: #1a1a1a;
+  font-weight: 600;
 }
 
 /* ─── Deliverables visual distinction ─── */
@@ -598,5 +655,152 @@ body {
 @media (min-width: 769px) and (max-width: 1023px) {
   .sidebar-menu {
     font-size: 0.82rem;
+  }
+}
+
+/* ─── Milestone page ─── */
+
+.milestone-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #4a90d9;
+  background: rgba(74, 144, 217, 0.1);
+  padding: 4px 12px;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+
+.fig-block {
+  margin: 1.6em 0 1.2em 0;
+}
+
+.fig-grid {
+  display: grid;
+  gap: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f6f7f9;
+  padding: 6px;
+  border: 1px solid #eee;
+}
+
+.fig-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  aspect-ratio: 1 / 1;
+}
+
+.fig-grid-2x2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.fig-grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.fig-block figcaption {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #666;
+  text-align: center;
+  margin-top: 0.7em;
+  padding: 0 0.5em;
+}
+
+.fig-block figcaption strong {
+  color: #333;
+}
+
+.caption-small {
+  font-size: 0.8rem !important;
+  color: #777 !important;
+  line-height: 1.55 !important;
+  margin-top: -0.3em !important;
+  margin-bottom: 1.4em !important;
+}
+
+/* ─── Results table ─── */
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.2em 0 0.4em 0;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.results-table thead th {
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.6em 0.8em;
+  border-bottom: 2px solid #1a1a1a;
+}
+
+.results-table tbody td {
+  padding: 0.55em 0.8em;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.results-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.results-table tbody tr.row-sig td {
+  background: rgba(74, 144, 217, 0.04);
+}
+
+.results-table tbody tr.row-overall td {
+  border-top: 1.5px solid #999;
+  background: #fafbfc;
+  color: #1a1a1a;
+}
+
+.results-table tbody tr.row-overall td:first-child {
+  font-weight: 700;
+}
+
+.results-table .muted-pool {
+  display: block;
+  font-size: 0.78rem;
+  color: #888;
+  font-weight: 400;
+  margin-top: 1px;
+  letter-spacing: 0.01em;
+}
+
+/* Inline code readability in milestone copy */
+.content-block .content code {
+  background: #f4f5f7;
+  border: 1px solid #eaecef;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .fig-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .fig-grid-2x2 {
+    grid-template-columns: 1fr;
   }
 }
