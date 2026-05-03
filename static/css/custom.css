@@ -807,3 +807,183 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── Final report additions ─── */
+
+.fig-grid-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.fig-grid-header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555;
+  text-align: center;
+  margin-bottom: 4px;
+  padding: 0 6px;
+}
+
+.fig-block.fig-block-wide {
+  margin-left: -1.5em;
+  margin-right: -1.5em;
+}
+
+.fig-block.fig-block-wide .fig-grid img {
+  aspect-ratio: 1 / 1;
+}
+
+.fig-single {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  padding: 8px;
+  background: #fff;
+}
+
+.contributions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin-top: 0.5em;
+}
+
+.contribution-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-left: 3px solid #36454F;
+  border-radius: 6px;
+  padding: 1.1em 1.3em;
+  transition: box-shadow 0.2s;
+}
+
+.contribution-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.contribution-card h5 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.5em 0 !important;
+  color: #1a1a1a;
+}
+
+.contribution-card .role-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(74, 144, 217, 0.1);
+  color: #4a90d9;
+  margin-left: 0.4em;
+  font-family: 'DM Sans', sans-serif;
+  vertical-align: middle;
+}
+
+.contribution-card ul {
+  margin: 0.3em 0 0 0 !important;
+  padding-left: 1.1em;
+}
+
+.contribution-card ul li {
+  font-size: 0.9em;
+  color: #444;
+  line-height: 1.55;
+  margin-bottom: 0.2em !important;
+}
+
+.final-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #d9764a;
+  background: rgba(217, 118, 74, 0.1);
+  padding: 4px 12px;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+
+/* References list */
+.references-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: ref;
+}
+
+.references-list li {
+  counter-increment: ref;
+  position: relative;
+  padding: 0.4em 0 0.4em 2.4em;
+  font-size: 0.92em;
+  line-height: 1.6;
+  color: #333;
+  border-bottom: 1px dashed #eee;
+}
+
+.references-list li::before {
+  content: "[" counter(ref) "]";
+  position: absolute;
+  left: 0;
+  top: 0.4em;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #888;
+}
+
+.references-list li:last-child {
+  border-bottom: none;
+}
+
+.references-list li a {
+  word-break: break-word;
+}
+
+/* Highlight callouts inside Technical Approach */
+.callout {
+  background: #fafbfc;
+  border: 1px solid #eef0f2;
+  border-left: 3px solid #4a90d9;
+  border-radius: 6px;
+  padding: 0.9em 1.2em;
+  margin: 1em 0;
+  font-size: 0.93em;
+  color: #444;
+  line-height: 1.65;
+}
+
+.callout strong {
+  color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .contributions {
+    grid-template-columns: 1fr;
+  }
+  .fig-block.fig-block-wide {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .fig-grid-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fig-grid-header {
+    display: none;
+  }
+}

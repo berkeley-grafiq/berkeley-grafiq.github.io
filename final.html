@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>GRAFIQ — Final Report</title>
+  <meta name="description" content="GRAFIQ Final Report: a graphics-grounded benchmark for vision-language models.">
+  <meta name="keywords" content="VLM, benchmark, graphics, image formation, geometry, materials, lighting, final report">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GRAFIQ — Final Report">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/main.js"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item brand-text" href="index.html">
+        <strong>GRAFIQ</strong>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="mainNavbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="index.html">Proposal</a>
+        <a class="navbar-item" href="milestone.html">Milestones</a>
+        <a class="navbar-item is-active" href="final.html">Final Report</a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a href="https://github.com/berkeley-grafiq" target="_blank" class="button is-dark is-small">
+            <span class="icon"><i class="fab fa-github"></i></span>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-body" style="padding: 5rem 1.5rem 0.5rem 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="final-eyebrow">Final Report</div>
+          <h1 class="title is-size-2 publication-title section-header" style="padding-bottom: 0.3em;">
+            GRAFIQ: Do VLMs Understand<br>Image Formation?
+          </h1>
+          <div class="is-size-5 publication-authors">
+            A graphics-grounded benchmark for vision-language models
+          </div>
+          <div class="fullpage-line" style="margin-bottom: 1.5em;"></div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">Steve Chen</span>
+            <span class="author-block">Patrick Tsung-Han Wu</span>
+            <span class="author-block">Fei Gao</span>
+            <span class="author-block">Alex Wang</span>
+          </div>
+          <br>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">UC Berkeley</span>
+          </div>
+          <br>
+          <div>
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="./static/pdfs/final_project.pdf" target="_blank" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/berkeley-grafiq/grafiq_datagen" target="_blank" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/tsunghanwu/berkeley-grafiq-dataset" target="_blank" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fas fa-database"></i></span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://youtu.be/sPWNLABvYjk" target="_blank" class="external-link button is-normal is-dark">
+                  <span class="icon"><i class="fas fa-video"></i></span>
+                  <span>Video</span>
+                </a>
+              </span>
+            </div>
+            <div class="fullpage-line" style="margin-top: 1.5em;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Hero -->
+
+<!-- Main content with sticky sidebar -->
+<section class="section main-content-section">
+  <div class="container" style="max-width: 1280px;">
+    <div class="columns">
+
+      <!-- Sticky sidebar -->
+      <div class="column is-one-fifth sidebar-column">
+        <aside class="menu sidebar-menu">
+          <p class="menu-label">Contents</p>
+          <ul class="menu-list">
+            <li><a href="#abstract" class="sidebar-link">Abstract</a></li>
+            <li><a href="#approach" class="sidebar-link">Technical Approach</a></li>
+            <li><a href="#problems" class="sidebar-link">Problems &amp; Lessons</a></li>
+            <li><a href="#results" class="sidebar-link">Results</a></li>
+            <li><a href="#references" class="sidebar-link">References</a></li>
+            <li><a href="#contributions" class="sidebar-link">Contributions</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Content area -->
+      <div class="column is-four-fifths" style="max-width: 768px;">
+
+        <!-- Abstract -->
+        <div id="abstract" class="content-block">
+          <h2 class="title is-3 section-header">Abstract</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <p>
+              Vision&ndash;language models (VLMs) are increasingly used as judges for image generation and visual reasoning, yet it remains unclear whether they actually understand <em>image formation</em>: the geometry, materials, lighting, and viewpoint that determine appearance. We introduce <strong>GRAFIQ</strong> (<em>Graphic Intelligence Quotient</em>), a synthetic benchmark that isolates these factors through deterministic Blender renders and viewer&ndash;relative forced&ndash;choice questions. Each item's ground truth is verified directly against render passes (depth, glossy&ndash;direct, surface&ndash;normal, or diffuse&ndash;direct), so the correct answer is supported by the image evidence rather than only by the scene graph.
+            </p>
+            <p>
+              We evaluate <strong>seven</strong> VLMs on a <strong>480&ndash;item</strong> recognition split (four tasks &times; 120 items): two open local models (Qwen2.5&ndash;VL&ndash;7B&ndash;Instruct, Qwen3&ndash;VL&ndash;8B&ndash;Thinking) and five API models (GLM&ndash;4.5V, GPT&ndash;4o&ndash;mini, GPT&ndash;5&ndash;mini, Gemini 3.1 Pro Thinking, Claude Opus 4.5). Gemini 3.1 Pro achieves the highest overall accuracy (<strong>74.8%</strong>), followed by GPT&ndash;5&ndash;mini (69.6%) and GLM&ndash;4.5V (69.2%); roughness and depth are substantially easier than normal orientation and light direction, and several models exhibit a systematic Left/Right bias that balanced accuracy partially corrects.
+            </p>
+            <p>
+              We further benchmark <strong>inverse generation</strong>&mdash;scaffolded Blender Python from reference renders&mdash;on a 120&ndash;item coding subset. Verification measures headless execution yield rather than pixel match: Gemini 3.1 Pro reaches <strong>100%</strong> after a minor API correction, Claude Opus 4.5 reaches 80.8%, while Qwen3&ndash;VL and the GPT minis lag well behind despite strong recognition scores. Together, these results separate the recognition of controlled graphics cues from reliable inverse code generation: models that rank depth or gloss well can still fail at emitting runnable scene scripts.
+            </p>
+
+            <figure class="fig-block">
+              <div class="fig-grid fig-grid-2x2">
+                <img src="./static/images/final/depth_bedroom.png" alt="Depth comparison teaser">
+                <img src="./static/images/final/roughness_outdoor.png" alt="Roughness comparison teaser">
+                <img src="./static/images/final/normal_office.png" alt="Normal orientation teaser">
+                <img src="./static/images/final/light_gradient.png" alt="Light direction teaser">
+              </div>
+              <figcaption>
+                <strong>One pixel&ndash;verified GRAFIQ item per task.</strong>
+                Top&ndash;left: depth comparison (geometry). Top&ndash;right: roughness comparison (materials).
+                Bottom&ndash;left: surface&ndash;normal orientation (geometry). Bottom&ndash;right: light&ndash;direction reasoning (lighting).
+                Each render is paired with a viewer&ndash;relative <em>Left</em>/<em>Right</em> question whose gold label is verified against the underlying render pass.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Technical Approach -->
+        <div id="approach" class="content-block">
+          <h2 class="title is-3 section-header">Technical Approach</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+
+            <h4>Two-stage pipeline</h4>
+            <p>
+              Each instance flows through a <strong>headless Blender stage</strong> that constructs the scene, places two foreground objects, varies exactly one task&ndash;dependent graphics factor, and exports an RGB image together with auxiliary passes; and a <strong>Python verification stage</strong> that reads those passes under per&ndash;object masks, checks consistency with scene metadata, instantiates a question template, and writes a <em>pixel&ndash;verified</em> record. Items that fail the pass&ndash;metadata agreement test are discarded so that every retained label is supported by the pixels shown to a model.
+            </p>
+
+            <div class="callout">
+              <strong>Pixel verification is the load-bearing design choice.</strong>
+              Prior synthetic benchmarks like <a href="https://cs.stanford.edu/people/jcjohns/clevr/" target="_blank">CLEVR</a> and <a href="https://kubric.readthedocs.io/" target="_blank">Kubric</a> derive labels from <em>scene metadata</em>. We derive labels from the <em>render passes</em> the model actually sees, which catches cases where the metadata is correct but the rendered image is ambiguous (e.g.&nbsp;the &ldquo;closer&rdquo; object is occluded). This is the core methodological departure from references and the reason we believe GRAFIQ measures graphics understanding rather than scene&ndash;graph memorisation.
+            </div>
+
+            <h4>Tasks and QA formulation</h4>
+            <p>
+              Four tasks span three image&ndash;formation axes; each task uses a dedicated Blender pass, has three natural&ndash;language question variants selected via <code>seed&nbsp;mod&nbsp;|T|</code> for phrasing robustness, and stores a forced&ndash;choice <code>["Left",&nbsp;"Right"]</code> answer.
+            </p>
+
+            <div class="task-category cat-geometry">
+              <h5><i class="fas fa-cube"></i>&ensp;depth_comparison &mdash; Geometry</h5>
+              <p>Varies object placement depth. Verifier reads the depth EXR pass and computes mean camera&ndash;space depth under the per&ndash;object <code>IndexOB</code> mask.</p>
+            </div>
+
+            <div class="task-category cat-materials">
+              <h5><i class="fas fa-palette"></i>&ensp;roughness_comparison &mdash; Materials</h5>
+              <p>Varies surface roughness on a controlled Principled BSDF (the importer strips imported materials so the rendered glossiness corresponds exactly to the shader). Verifier reads the glossy&ndash;direct pass.</p>
+            </div>
+
+            <div class="task-category cat-geometry">
+              <h5><i class="fas fa-compass"></i>&ensp;normal_orientation &mdash; Geometry</h5>
+              <p>Varies object yaw. Verifier reads the surface&ndash;normal pass and computes mean camera&ndash;facing&ndash;ness.</p>
+            </div>
+
+            <div class="task-category cat-lighting">
+              <h5><i class="fas fa-sun"></i>&ensp;light_direction &mdash; Lighting</h5>
+              <p>Varies key&ndash;light direction. Verifier reads the diffuse&ndash;direct pass and computes mean per&ndash;object luminance.</p>
+            </div>
+
+            <h4>Pixel-centroid &ldquo;Left&rdquo; / &ldquo;Right&rdquo;</h4>
+            <p>
+              Because every question is a forced choice between &ldquo;Left&rdquo; and &ldquo;Right&rdquo;, the benchmark is well&ndash;defined only if those two labels mean the same thing to the model and to the verifier. We anchor both to <em>the viewer's viewpoint on the rendered image</em> and derive the label from each object's pixel centroid (mean image&ndash;column under the <code>IndexOB</code> mask), independently of which scene&ndash;graph slot it occupies. The smaller&ndash;column object is &ldquo;Left&rdquo;.
+            </p>
+
+            <h4>Verification filter</h4>
+            <p>
+              Pixel agreement is necessary but not sufficient: a verifier metric can be correct while the cue it measures is invisible to a viewer. We add two task&ndash;specific drop rules so that residual difficulty reflects genuine model failure rather than ill&ndash;posed evidence:
+            </p>
+            <ul>
+              <li><strong>light_direction:</strong> drop items with per&ndash;object brightness ratio satisfying <code>|L_A/L_B&nbsp;&minus;&nbsp;1|&nbsp;&lt;&nbsp;0.20</code> (below the just&ndash;noticeable&ndash;difference floor for uniform&ndash;shaded primitives).</li>
+              <li><strong>normal_orientation:</strong> drop items whose object pair contains a rotationally&ndash;symmetric primitive (sphere, UV sphere, cone, ring, cylinder, capsule, disc), since such shapes are invariant under yaw about their principal axis.</li>
+            </ul>
+            <p>
+              On the released split, Stage&nbsp;2 verified 701 candidate items; the filter dropped 88 (56 small&ndash;gap and 32 symmetric&ndash;pair removals), and the remaining 613 were subsampled to a balanced 4&times;120&nbsp;=&nbsp;<strong>480</strong> recognition split.
+            </p>
+
+            <h4>Inverse generation: scaffolded Blender Python</h4>
+            <p>
+              In addition to discrimination items, the inverse formulation gives a model a reference RGB render plus a partial <code>script.py</code> that already loads the two foreground GLBs, and asks it to complete camera, lighting, and environment code. Verification is purely <em>executional</em>&mdash;Blender~4.4.3 must exit with status zero and emit a frame&mdash;rather than pixel&ndash;aligned to the reference. The reported number is execution yield, not visual similarity.
+            </p>
+
+            <h4>How we depart from prior work</h4>
+            <ul>
+              <li>Versus <a href="https://arxiv.org/abs/2404.12390" target="_blank">BLINK</a> and <a href="https://arxiv.org/abs/2406.11212" target="_blank">PhysBench</a>: same perceptual&ndash;probing spirit, but each item isolates exactly one of four image&ndash;formation factors and verifies the label against the exact render pass.</li>
+              <li>Versus <a href="https://cs.stanford.edu/people/jcjohns/clevr/" target="_blank">CLEVR</a> / <a href="https://kubric.readthedocs.io/" target="_blank">Kubric</a> / <a href="https://arxiv.org/abs/2412.07825" target="_blank">3DSRBench</a>: we keep template&ndash;based forced&ndash;choice questions and a deterministic scripted renderer, but we substitute pixel&ndash;verified labels for scene&ndash;metadata labels.</li>
+              <li>Versus the proposal's own first iteration: world&ndash;coordinate Left/Right was replaced with viewer&ndash;pixel&ndash;centroid Left/Right after a silent axis bug pushed Qwen below chance (Section: Problems &amp; Lessons).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="content-block">
+          <h2 class="title is-3 section-header">Results</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+
+            <h4>Recognition leaderboard (n = 480)</h4>
+            <p>
+              Seven VLMs evaluated under a shared protocol: greedy decoding, viewer&ndash;relative Left/Right forced choice, decisions extracted from the final answer segment of reasoning models. <strong>Bold</strong> marks above&ndash;chance results at <em>p</em>&nbsp;&lt;&nbsp;0.05 (binomial vs.&nbsp;50%). D / R / N / L are per&ndash;task accuracies for depth / roughness / normal / light (n&nbsp;=&nbsp;120 each).
+            </p>
+
+            <div class="table-wrapper">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th class="num">All [95% CI]</th>
+                    <th class="num">D</th>
+                    <th class="num">R</th>
+                    <th class="num">N</th>
+                    <th class="num">L</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Qwen2.5&ndash;VL&ndash;7B</td>
+                    <td class="num"><strong>64.0%</strong> [59.6, 68.3]</td>
+                    <td class="num"><strong>62.5%</strong></td>
+                    <td class="num"><strong>89.2%</strong></td>
+                    <td class="num">50.0%</td>
+                    <td class="num">54.2%</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen3&ndash;VL&ndash;8B (Thinking)</td>
+                    <td class="num"><strong>60.4%</strong> [56.0, 64.8]</td>
+                    <td class="num">48.3%</td>
+                    <td class="num"><strong>77.5%</strong></td>
+                    <td class="num">55.8%</td>
+                    <td class="num"><strong>60.0%</strong></td>
+                  </tr>
+                  <tr>
+                    <td>GLM&ndash;4.5V (Thinking)</td>
+                    <td class="num"><strong>69.2%</strong> [65.0, 73.3]</td>
+                    <td class="num"><strong>84.2%</strong></td>
+                    <td class="num"><strong>80.0%</strong></td>
+                    <td class="num">54.2%</td>
+                    <td class="num">58.3%</td>
+                  </tr>
+                  <tr>
+                    <td>GPT&ndash;4o&ndash;mini</td>
+                    <td class="num"><strong>57.3%</strong> [52.7, 61.9]</td>
+                    <td class="num">48.3%</td>
+                    <td class="num"><strong>77.5%</strong></td>
+                    <td class="num">45.8%</td>
+                    <td class="num">57.5%</td>
+                  </tr>
+                  <tr class="row-sig">
+                    <td>GPT&ndash;5&ndash;mini (Thinking)</td>
+                    <td class="num"><strong>69.6%</strong> [65.4, 73.5]</td>
+                    <td class="num"><strong>85.8%</strong></td>
+                    <td class="num"><strong>85.0%</strong></td>
+                    <td class="num"><strong>60.8%</strong></td>
+                    <td class="num">46.7%</td>
+                  </tr>
+                  <tr class="row-overall">
+                    <td><strong>Gemini 3.1 Pro (Thinking)</strong></td>
+                    <td class="num"><strong>74.8%</strong> [70.8, 78.8]</td>
+                    <td class="num"><strong>94.2%</strong></td>
+                    <td class="num"><strong>93.3%</strong></td>
+                    <td class="num"><strong>63.3%</strong></td>
+                    <td class="num">48.3%</td>
+                  </tr>
+                  <tr>
+                    <td>Claude Opus 4.5 (Thinking)</td>
+                    <td class="num"><strong>60.2%</strong> [55.8, 64.6]</td>
+                    <td class="num"><strong>74.2%</strong></td>
+                    <td class="num"><strong>71.7%</strong></td>
+                    <td class="num">45.0%</td>
+                    <td class="num">50.0%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="caption-small">
+              Table&nbsp;1: Recognition accuracy on the 480&ndash;item primitive split. All seven models exceed chance overall. Roughness and depth are reliably above chance for most models; normal&ndash;orientation and light&ndash;direction remain near chance even for the strongest systems.
+            </p>
+
+            <figure class="fig-block">
+              <img class="fig-single" src="./static/images/final/fig_per_task.png" alt="Per-task accuracy bar chart">
+              <figcaption>
+                <strong>Per&ndash;task recognition accuracy.</strong>
+                Within each task group, bars are ordered by overall model accuracy (best on the left). The dashed line marks the 50% binomial chance rate. Roughness and depth dominate; normal and light hug chance for almost every model.
+              </figcaption>
+            </figure>
+
+            <h4>Left/Right diagnostics &amp; balanced accuracy</h4>
+            <p>
+              Several models show a strong predicted&ndash;Left bias relative to the 53.8% gold Left rate. Balanced accuracy
+              (averaging accuracy conditional on gold&nbsp;=&nbsp;Left and gold&nbsp;=&nbsp;Right) is a bias&ndash;robust view of the same predictions.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th class="num">Parse</th>
+                    <th class="num">Pred. L</th>
+                    <th class="num">Bal. Mean</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Qwen2.5&ndash;VL&ndash;7B</td>
+                    <td class="num">100.0%</td>
+                    <td class="num">64.4%</td>
+                    <td class="num">65.1%</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen3&ndash;VL&ndash;8B (Thinking)</td>
+                    <td class="num">100.0%</td>
+                    <td class="num">73.3%</td>
+                    <td class="num">59.8%</td>
+                  </tr>
+                  <tr>
+                    <td>GLM&ndash;4.5V (Thinking)</td>
+                    <td class="num">99.8%</td>
+                    <td class="num">49.0%</td>
+                    <td class="num">69.0%</td>
+                  </tr>
+                  <tr>
+                    <td>GPT&ndash;4o&ndash;mini</td>
+                    <td class="num">100.0%</td>
+                    <td class="num">59.0%</td>
+                    <td class="num">60.2%</td>
+                  </tr>
+                  <tr class="row-sig">
+                    <td>GPT&ndash;5&ndash;mini (Thinking)</td>
+                    <td class="num">100.0%</td>
+                    <td class="num">40.0%</td>
+                    <td class="num"><strong>72.3%</strong></td>
+                  </tr>
+                  <tr class="row-overall">
+                    <td><strong>Gemini 3.1 Pro (Thinking)</strong></td>
+                    <td class="num">100.0%</td>
+                    <td class="num">49.8%</td>
+                    <td class="num"><strong>74.4%</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Claude Opus 4.5 (Thinking)</td>
+                    <td class="num">100.0%</td>
+                    <td class="num">44.4%</td>
+                    <td class="num">61.6%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="caption-small">
+              Table&nbsp;2: Parse rate, predicted&ndash;Left fraction (gold&nbsp;=&nbsp;53.8%), and mean balanced accuracy across the four tasks. GPT&ndash;5&ndash;mini overtakes GLM&ndash;4.5V on the bias&ndash;robust view; Qwen3&ndash;VL drops to last.
+            </p>
+
+            <h4>Effect of scene backdrop (RQ3)</h4>
+            <p>
+              The same 480 predictions, re&ndash;binned by backdrop tier. Adding scene context does not hurt graphics recognition on average, and the strongest models actually score higher on furnished rooms than on neutral studios&mdash;suggesting they exploit ground&ndash;plane and lighting&ndash;direction priors in the richer scenes.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th class="num">Studio (158)</th>
+                    <th class="num">Furnished (152)</th>
+                    <th class="num">Outdoor (170)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Qwen2.5&ndash;VL&ndash;7B</td><td class="num">63.9%</td><td class="num">63.8%</td><td class="num"><strong>64.1%</strong></td></tr>
+                  <tr><td>Qwen3&ndash;VL&ndash;8B</td><td class="num"><strong>62.0%</strong></td><td class="num">59.9%</td><td class="num">59.4%</td></tr>
+                  <tr><td>GLM&ndash;4.5V</td><td class="num"><strong>71.5%</strong></td><td class="num">66.4%</td><td class="num">69.4%</td></tr>
+                  <tr><td>GPT&ndash;4o&ndash;mini</td><td class="num">56.3%</td><td class="num"><strong>66.4%</strong></td><td class="num">50.0%</td></tr>
+                  <tr><td>GPT&ndash;5&ndash;mini</td><td class="num">64.6%</td><td class="num"><strong>78.9%</strong></td><td class="num">65.9%</td></tr>
+                  <tr class="row-overall"><td><strong>Gemini 3.1 Pro</strong></td><td class="num">70.3%</td><td class="num"><strong>84.2%</strong></td><td class="num">70.6%</td></tr>
+                  <tr><td>Claude Opus 4.5</td><td class="num">61.4%</td><td class="num"><strong>63.8%</strong></td><td class="num">55.9%</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="caption-small">
+              Table&nbsp;3: Per&ndash;tier accuracy, all four tasks combined. <strong>Bold</strong> marks each model's best tier.
+            </p>
+
+            <figure class="fig-block">
+              <div class="fig-grid fig-grid-3">
+                <img src="./static/images/final/tier_plain.png" alt="Neutral studio backdrop">
+                <img src="./static/images/final/tier_bedroom.png" alt="Furnished bedroom">
+                <img src="./static/images/final/tier_scene.png" alt="Full-room procedural interior">
+              </div>
+              <figcaption>
+                <strong>Backdrop realism roadmap.</strong> The same primitive pair under three backdrops. Left: a neutral studio world (Tier&nbsp;1). Centre: a furnished procedural room (the released axis). Right: a full&ndash;room procedural interior generated with <a href="https://infinigen.org/" target="_blank">Infinigen</a> (future axis).
+              </figcaption>
+            </figure>
+
+            <h4>Inverse generation: headless execution yield</h4>
+            <p>
+              Each row pairs a fixed reference frame with a model&ndash;generated <code>script.py</code> under the scaffolded prompt. An item is <strong>executable</strong> if Blender&nbsp;4.4.3 exits with status zero and writes a frame; this is execution yield, not pixel match.
+            </p>
+
+            <div class="table-wrapper">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th class="num">Executable</th>
+                    <th class="num">Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-overall"><td><strong>Gemini 3.1 Pro</strong></td><td class="num">120 / 120</td><td class="num"><strong>100.0%</strong></td></tr>
+                  <tr><td>Claude Opus 4.5</td><td class="num">97 / 120</td><td class="num">80.8%</td></tr>
+                  <tr><td>GPT&ndash;4o&ndash;mini</td><td class="num">47 / 120</td><td class="num">39.2%</td></tr>
+                  <tr><td>GPT&ndash;5&ndash;mini</td><td class="num">40 / 120</td><td class="num">33.3%</td></tr>
+                  <tr><td>Qwen3&ndash;VL&ndash;8B</td><td class="num">17 / 120</td><td class="num">14.2%</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="caption-small">
+              Table&nbsp;4: Inverse&ndash;generation execution yield on a 120&ndash;item subset. Gemini's 100% reflects yield <em>after</em> a minor systematic typo correction (it consistently prefixed <code>mathutils</code> with <code>bpy.</code>; pre&ndash;correction yield was ~25%).
+            </p>
+
+            <figure class="fig-block">
+              <img class="fig-single" src="./static/images/final/fig_rec_vs_inv.png" alt="Recognition vs inverse-generation scatter">
+              <figcaption>
+                <strong>Recognition accuracy on depth versus inverse&ndash;generation execution yield.</strong>
+                Each marker is one model; the dotted line is <em>y</em>&nbsp;=&nbsp;<em>x</em>. GPT&ndash;5&ndash;mini reads depth at 85.8% but only emits 33.3% executable scripts&mdash;a concrete instance where a strong recogniser is not a strong inverse generator under Blender&nbsp;4.x.
+              </figcaption>
+            </figure>
+
+            <h4>Inverse-generation reconstructions</h4>
+            <p>
+              Six reference scenes from the inverse coding subset and the corresponding executable model reconstructions. Outputs are <em>not</em> pixel&ndash;matched to the reference; we only require that they run to completion.
+            </p>
+
+            <figure class="fig-block fig-block-wide">
+              <div class="fig-grid-header">
+                <div>Reference</div>
+                <div>Gemini 3.1 Pro</div>
+                <div>Qwen3-VL-8B</div>
+                <div>GPT-5-mini</div>
+                <div>Claude Opus 4.5</div>
+              </div>
+              <div class="fig-grid fig-grid-5">
+                <img src="./static/images/final/inv_row1_ref.png" alt="Reference row 1">
+                <img src="./static/images/final/inv_row1_gm.png" alt="Gemini row 1">
+                <img src="./static/images/final/inv_row1_q3.png" alt="Qwen3 row 1">
+                <img src="./static/images/final/inv_row1_g5.png" alt="GPT-5-mini row 1">
+                <img src="./static/images/final/inv_row1_cl.png" alt="Claude row 1">
+
+                <img src="./static/images/final/inv_row2_ref.png" alt="Reference row 2">
+                <img src="./static/images/final/inv_row2_gm.png" alt="Gemini row 2">
+                <img src="./static/images/final/inv_row2_q3.png" alt="Qwen3 row 2">
+                <img src="./static/images/final/inv_row2_g5.png" alt="GPT-5-mini row 2">
+                <img src="./static/images/final/inv_row2_cl.png" alt="Claude row 2">
+
+                <img src="./static/images/final/inv_row3_ref.png" alt="Reference row 3">
+                <img src="./static/images/final/inv_row3_gm.png" alt="Gemini row 3">
+                <img src="./static/images/final/inv_row3_q3.png" alt="Qwen3 row 3">
+                <img src="./static/images/final/inv_row3_g5.png" alt="GPT-5-mini row 3">
+                <img src="./static/images/final/inv_row3_cl.png" alt="Claude row 3">
+
+                <img src="./static/images/final/inv_row4_ref.png" alt="Reference row 4">
+                <img src="./static/images/final/inv_row4_gm.png" alt="Gemini row 4">
+                <img src="./static/images/final/inv_row4_q3.png" alt="Qwen3 row 4">
+                <img src="./static/images/final/inv_row4_g5.png" alt="GPT-5-mini row 4">
+                <img src="./static/images/final/inv_row4_cl.png" alt="Claude row 4">
+
+                <img src="./static/images/final/inv_row5_ref.png" alt="Reference row 5">
+                <img src="./static/images/final/inv_row5_gm.png" alt="Gemini row 5">
+                <img src="./static/images/final/inv_row5_q3.png" alt="Qwen3 row 5">
+                <img src="./static/images/final/inv_row5_g5.png" alt="GPT-5-mini row 5">
+                <img src="./static/images/final/inv_row5_cl.png" alt="Claude row 5">
+
+                <img src="./static/images/final/inv_row6_ref.png" alt="Reference row 6">
+                <img src="./static/images/final/inv_row6_gm.png" alt="Gemini row 6">
+                <img src="./static/images/final/inv_row6_q3.png" alt="Qwen3 row 6">
+                <img src="./static/images/final/inv_row6_g5.png" alt="GPT-5-mini row 6">
+                <img src="./static/images/final/inv_row6_cl.png" alt="Claude row 6">
+              </div>
+              <figcaption>
+                <strong>Six reference scenes and their model reconstructions.</strong>
+                The first column is the reference render; the remaining columns show executable outputs from each model under headless Blender&nbsp;4.4.3. Many other subset rows still fail with the API drift modes documented above; full <code>stderr</code> traces are retained per item.
+              </figcaption>
+            </figure>
+
+            <h4>Representative failure cases</h4>
+            <figure class="fig-block">
+              <div class="fig-grid fig-grid-3">
+                <img src="./static/images/final/failure_depth.png" alt="Failure: depth">
+                <img src="./static/images/final/failure_normal.png" alt="Failure: normal">
+                <img src="./static/images/final/failure_light.png" alt="Failure: light">
+              </div>
+              <figcaption>
+                <strong>Pixel&ndash;verified gold is &ldquo;Right&rdquo; in all three cases</strong>; each model answers &ldquo;Left&rdquo;. The depth and normal failures reflect a Left&ndash;bias prior; the light&ndash;direction failure reflects the cue&ndash;alignment problem flagged in <em>Lessons learned</em>: the verifier mask&ndash;mean and the visible specular peak point in opposite directions.
+              </figcaption>
+            </figure>
+
+          </div>
+        </div>
+
+        <!-- References -->
+        <div id="references" class="content-block">
+          <h2 class="title is-3 section-header">References</h2>
+          <div class="header-line"></div>
+          <div class="content has-text-left">
+            <ol class="references-list">
+              <li>
+                Fu et&nbsp;al. <em>BLINK: Multimodal Large Language Models Can See but Not Perceive.</em> ECCV 2024.
+                <a href="https://arxiv.org/abs/2404.12390" target="_blank">arxiv.org/abs/2404.12390</a>
+              </li>
+              <li>
+                Chow et&nbsp;al. <em>PhysBench: Benchmarking and Enhancing Vision&ndash;Language Models for Physical&ndash;World Understanding.</em> 2024.
+                <a href="https://arxiv.org/abs/2406.11212" target="_blank">arxiv.org/abs/2406.11212</a>
+              </li>
+              <li>
+                Johnson et&nbsp;al. <em>CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning.</em> CVPR 2017.
+                <a href="https://arxiv.org/abs/1612.06890" target="_blank">arxiv.org/abs/1612.06890</a>
+              </li>
+              <li>
+                Greff et&nbsp;al. <em>Kubric: A Scalable Dataset Generator.</em> CVPR 2022.
+                <a href="https://arxiv.org/abs/2203.03570" target="_blank">arxiv.org/abs/2203.03570</a>
+              </li>
+              <li>
+                Liu et&nbsp;al. <em>MMBench: Is Your Multi&ndash;modal Model an All&ndash;around Player?</em> ECCV 2024.
+                <a href="https://arxiv.org/abs/2307.06281" target="_blank">arxiv.org/abs/2307.06281</a>
+              </li>
+              <li>
+                Yue et&nbsp;al. <em>MMMU: A Massive Multi&ndash;discipline Multimodal Understanding and Reasoning Benchmark for Expert AGI.</em> CVPR 2024.
+                <a href="https://arxiv.org/abs/2311.16502" target="_blank">arxiv.org/abs/2311.16502</a>
+              </li>
+              <li>
+                Li et&nbsp;al. <em>SEED&ndash;Bench: Benchmarking Multimodal LLMs with Generative Comprehension.</em> 2023.
+                <a href="https://arxiv.org/abs/2307.16125" target="_blank">arxiv.org/abs/2307.16125</a>
+              </li>
+              <li>
+                Antol et&nbsp;al. <em>VQA: Visual Question Answering.</em> ICCV 2015.
+                <a href="https://arxiv.org/abs/1505.00468" target="_blank">arxiv.org/abs/1505.00468</a>
+              </li>
+              <li>
+                Hudson &amp; Manning. <em>GQA: A New Dataset for Real&ndash;World Visual Reasoning and Compositional Question Answering.</em> CVPR 2019.
+                <a href="https://arxiv.org/abs/1902.09506" target="_blank">arxiv.org/abs/1902.09506</a>
+              </li>
+              <li>
+                Suhr et&nbsp;al. <em>A Corpus for Reasoning About Natural Language Grounded in Photographs (NLVR2).</em> ACL 2019.
+                <a href="https://arxiv.org/abs/1811.00491" target="_blank">arxiv.org/abs/1811.00491</a>
+              </li>
+              <li>
+                Kamath et&nbsp;al. <em>What's &ldquo;up&rdquo; with Vision&ndash;Language Models? Investigating Their Struggle with Spatial Reasoning.</em> EMNLP 2023.
+                <a href="https://arxiv.org/abs/2310.19785" target="_blank">arxiv.org/abs/2310.19785</a>
+              </li>
+              <li>
+                Chen et&nbsp;al. <em>SpatialVLM: Endowing Vision&ndash;Language Models with Spatial Reasoning Capabilities.</em> CVPR 2024.
+                <a href="https://arxiv.org/abs/2401.12168" target="_blank">arxiv.org/abs/2401.12168</a>
+              </li>
+              <li>
+                Bell et&nbsp;al. <em>Intrinsic Images in the Wild.</em> SIGGRAPH 2014.
+                <a href="https://intrinsic.cs.cornell.edu/" target="_blank">intrinsic.cs.cornell.edu</a>
+              </li>
+              <li>
+                Girdhar &amp; Ramanan. <em>CATER: A Diagnostic Dataset for Compositional Actions and Temporal Reasoning.</em> ICLR 2020.
+                <a href="https://arxiv.org/abs/1910.04744" target="_blank">arxiv.org/abs/1910.04744</a>
+              </li>
+              <li>
+                Ma et&nbsp;al. <em>3DSRBench: A Comprehensive 3D Spatial Reasoning Benchmark.</em> 2024.
+                <a href="https://arxiv.org/abs/2412.07825" target="_blank">arxiv.org/abs/2412.07825</a>
+              </li>
+              <li>
+                Deitke et&nbsp;al. <em>Objaverse: A Universe of Annotated 3D Objects.</em> CVPR 2023.
+                <a href="https://arxiv.org/abs/2212.08051" target="_blank">arxiv.org/abs/2212.08051</a>
+              </li>
+              <li>
+                Raistrick et&nbsp;al. <em>Infinigen: Infinite Photorealistic Worlds Using Procedural Generation.</em> CVPR 2023.
+                <a href="https://arxiv.org/abs/2306.09310" target="_blank">arxiv.org/abs/2306.09310</a>
+              </li>
+              <li>
+                Raistrick et&nbsp;al. <em>Infinigen Indoors: Photorealistic Indoor Scenes Using Procedural Generation.</em> CVPR 2024.
+                <a href="https://arxiv.org/abs/2406.11824" target="_blank">arxiv.org/abs/2406.11824</a>
+              </li>
+              <li>
+                Kwon et&nbsp;al. <em>Efficient Memory Management for Large Language Model Serving with PagedAttention (vLLM).</em> SOSP 2023.
+                <a href="https://arxiv.org/abs/2309.06180" target="_blank">arxiv.org/abs/2309.06180</a>
+              </li>
+              <li>
+                Blender Foundation. <em>Blender 4.x.</em>
+                <a href="https://www.blender.org/" target="_blank">blender.org</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- End content area -->
+
+    </div>
+  </div>
+</section>
+<!-- Main content -->
+
+<!-- Back to top -->
+<a href="#" class="back-to-top" title="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="7"></line>
+    <polyline points="5 13 12 7 19 13"></polyline>
+    <line x1="5" y1="4" x2="19" y2="4"></line>
+  </svg>
+</a>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website template adapted from <a href="https://echo-bench.github.io" target="_blank">ECHO</a>,
+            which is based on <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
